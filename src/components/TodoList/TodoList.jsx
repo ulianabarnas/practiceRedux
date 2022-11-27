@@ -1,26 +1,29 @@
-import { Grid } from "components";
+import { useSelector } from 'react-redux';
+import { todos } from 'redux/todoSlice';
 
+import { Grid, GridItem, Text, Todo } from 'components';
 
-export default function TodoList() {
-    return (
-        <>
-        {/* {todos.length === 0 && (
-                <Text textAlign="center">There are no any todos ... </Text>
-                )}
+export const TodoList = () => {
+  const allTodos = useSelector(todos);
 
-                <Grid>
-                {todos.length > 0 &&
-                    todos.map((todo, index) => (
-                    <GridItem key={todo.id}>
-                        <Todo
-                        id={todo.id}
-                        text={todo.text}
-                        counter={index + 1}
-                        onClick={this.deleteTodo}
-                        />
-                    </GridItem>
-                    ))}
-                </Grid> */}
-        </>
-    )
-}
+  return (
+    <>
+      {!allTodos.length && (
+        <Text textAlign="center">There are no any todos ... </Text>
+      )}
+
+      <Grid>
+        {!!allTodos.length &&
+          allTodos.map((todo, index) => (
+            <GridItem key={todo.id}>
+              <Todo
+                id={todo.id}
+                text={todo.text}
+                counter={index + 1}
+              />
+            </GridItem>
+          ))}
+      </Grid>
+    </>
+  );
+};
